@@ -1,0 +1,517 @@
+{
+	"info": {
+		"_postman_id": "42f58c14-5ec2-4517-94c2-f96fa8dca7b0",
+		"name": "Petstore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0_ChekPet_NotCreated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c44f0e4e-d569-4457-8060-1d55eefb2ca7",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 404, petId is free\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet/240691",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"240691"
+					]
+				},
+				"description": "Delete your Pet from the list"
+			},
+			"response": []
+		},
+		{
+			"name": "1_AddNewPet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02b39c9b-cba1-4a88-b044-0e12854fa39f",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200, create request - passed\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Pet name in respond is correct\"] = jsonData.name === \"Oscar\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 240691,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"Oscar\",\r\n  \"photoUrls\": [\r\n    \"https://upload.wikimedia.org/wikipedia/commons/0/08/Astronotus_ocellatus.jpg\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"Oscar\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}"
+				},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				},
+				"description": "Add a new Pet"
+			},
+			"response": []
+		},
+		{
+			"name": "2_ChekPet_WasCreated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c70b6a3-3e0d-4962-b8cd-7bfb6e082793",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200, pet was created\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Pet name is correct\"] = jsonData.name === \"Oscar\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet/240691",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"240691"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3_ChangePetsData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d5e2170a-54d5-452f-bf91-5b2c5ac8f27d",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200, request for changing data - passed\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Pet name in respond data is correct\"] = jsonData.name === \"Astronotus ocellatus\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 240691,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"Astronotus ocellatus\",\r\n  \"photoUrls\": [\r\n    \"https://upload.wikimedia.org/wikipedia/commons/0/08/Astronotus_ocellatus.jpg\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"Oscar(Astronotus ocellatus)\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}"
+				},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4_ChekPet_WasRenamed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9d436cf-3ad9-4ebe-846c-1e62ded6fe71",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Pet's name was changed\"] = jsonData.name === \"Astronotus ocellatus\";",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet/240691",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"240691"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5_DelPet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "463ad5f0-0ead-4385-8418-2fd7773d2487",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200, delete request - passed\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet/240691",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"240691"
+					]
+				},
+				"description": "Delete your Pet from the list"
+			},
+			"response": []
+		},
+		{
+			"name": "6_ChekPet_WasDelated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "06bf9ed4-d336-43c4-9c61-7db7d605a057",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 404, pet was delated\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet/240691",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"240691"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7_ChangedPetThatNotExist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fdad15b4-24c3-4b8c-9150-d262d61d97e7",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Put data to non created pet(expect for 404 in response)\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 240691,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"Astronotus ocellatus\",\r\n  \"photoUrls\": [\r\n    \"https://upload.wikimedia.org/wikipedia/commons/0/08/Astronotus_ocellatus.jpg\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"Oscar(Astronotus ocellatus)\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}"
+				},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8_ChekPet_UpdPetWithFormData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58bb4aa9-444f-4ea9-889a-c627923f1c8b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200, request - passed\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Oscar(add with form data)",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "SomeText(add with form data)",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet/240691",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"240691"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9_ChekPet_UpdPetWithFormData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86510529-d18e-48ea-80e3-dd68ec66fa6e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200, request - passed\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Pet name was changed with form data\"] = jsonData.name === \"Oscar(add with form data)\";",
+							"tests[\"Status was changed with form data\"] = jsonData.status === \"SomeText(add with form data)\";"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/pet/240691",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"240691"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10_Bonus_StorePlaceOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f319c36d-3bfa-42fe-b447-2bd9e5fabeed",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200, order was plased\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 196042,\r\n  \"petId\": 240691,\r\n  \"quantity\": 1,\r\n  \"shipDate\": \"2018-05-13T12:08:17.237Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": false\r\n}"
+				},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/store/order",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				},
+				"description": "Add a new Pet"
+			},
+			"response": []
+		},
+		{
+			"name": "11_Bonus_ChekBonus_PlaceOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "591f27ff-e7a9-43cc-bb02-963df7e2128d",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200, pet was created\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Order id is correct\"] = jsonData.id === 196042;",
+							"tests[\"Pet id is correct\"] = jsonData.petId === 240691;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://petstore.swagger.io/v2/store/order/196042",
+					"protocol": "http",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order",
+						"196042"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
