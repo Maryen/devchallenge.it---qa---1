@@ -1,4 +1,4 @@
-# devchallenge.it---qa---1
+# devchallenge.it-qa-1
 QA-1 part of task for devchallenge.it
 
 
